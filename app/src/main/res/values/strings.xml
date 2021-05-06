@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BudgetControl</string>
+    <string name="balance">Баланс</string>
+    <string name="income">дохід</string>
+    <string name="costs">витрати</string>
 </resources>

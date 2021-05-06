@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DateIntervalView">
+        <attr name="startDate" format="string" />
+        <attr name="endDate" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="IncomeCostsCounterView">
+        <attr name="isIncome" format="boolean" />
+        <attr name="value" format="float" />
+    </declare-styleable>
+</resources>
