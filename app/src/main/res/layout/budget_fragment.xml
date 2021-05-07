@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.budgetcontrol.DateIntervalView
+    <com.example.budgetcontrol.views.DateIntervalView
         android:id="@+id/budgetFragmentDateIntervalView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +35,7 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/balanceValue"
             style="@style/YellowMoneyNumberTextViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
         app:layout_constraintVertical_bias="0.35">
 
         <!-- add clicklisteners-->
-        <com.example.budgetcontrol.IncomeCostsCounterView
+        <com.example.budgetcontrol.views.IncomeCostsCounterView
             android:id="@+id/incomeCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/income_counter_view_selector"
+            android:background="@drawable/income_counter_view_background"
             app:isIncome="true"
             app:value="100" />
 
@@ -69,22 +69,22 @@
             android:layout_height="match_parent"
             android:background="@color/light_yellow" />
 
-        <com.example.budgetcontrol.IncomeCostsCounterView
+        <com.example.budgetcontrol.views.IncomeCostsCounterView
             android:id="@+id/costsCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/costs_counter_view_selector"
+            android:background="@drawable/costs_counter_view_background"
             app:isIncome="false"
             app:value="200" />
 
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/goalImageView"
+        android:id="@+id/targetImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/goal"
+        android:src="@drawable/target"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
@@ -101,7 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/goalImageView"
+        app:layout_constraintTop_toTopOf="@id/targetImageView"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
@@ -112,7 +112,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/goalImageView"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

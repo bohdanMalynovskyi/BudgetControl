@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="income_costs_counter_radius">45dp</dimen>
+    <dimen name="button_text_view_radius">45dp</dimen>
+    <dimen name="edit_text_height">40dp</dimen>
+    <item name="letter_spacing_1_25" type="dimen" format="float">0.1</item>
 </resources>

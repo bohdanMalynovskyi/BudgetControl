@@ -1,10 +1,11 @@
-package com.example.budgetcontrol
+package com.example.budgetcontrol.views
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.budgetcontrol.R
 import kotlinx.android.synthetic.main.income_costs_counter.view.*
 
 class IncomeCostsCounterView : ConstraintLayout {

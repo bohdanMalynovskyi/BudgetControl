@@ -1,10 +1,11 @@
-package com.example.budgetcontrol
+package com.example.budgetcontrol.views
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.budgetcontrol.R
 import kotlinx.android.synthetic.main.date_interval_view.view.*
 
 class DateIntervalView : LinearLayout {

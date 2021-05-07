@@ -11,11 +11,11 @@
     <color name="primary_yellow">#FAE979</color>
     <color name="light_yellow">#FAEE9C</color>
     <color name="text_color">#304962</color>
+    <color name="text_view_button_color">#304962</color>
     <color name="light_blue">#BACBD2</color>
     <color name="gray">#C4C4C4</color>
     <color name="primary_background_color">#FFF9F1</color>
     <color name="dialog_background_color">#E5E5E5</color>
 
-    <color name="unpressed_income_costs_counter_color">#C4C4C4</color>
-    <color name="pressed_income_costs_counter_color">#939597</color>
+    <color name="income_costs_counter_color">#C4C4C4</color>
 </resources>

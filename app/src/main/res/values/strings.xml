@@ -3,4 +3,8 @@
     <string name="balance">Баланс</string>
     <string name="income">дохід</string>
     <string name="costs">витрати</string>
+    <string name="target">ціль</string>
+    <string name="is_left">залишилось</string>
+    <string name="contribution">внесок</string>
+    <string name="to_confirm">підтвердити</string>
 </resources>
