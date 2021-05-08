@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/transaction_background"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingVertical="15dp"
+    android:paddingStart="15dp">
+
+    <TextView
+        android:id="@+id/transactionValue"
+        style="@style/BlueRegularTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="+ 0,0"
+        android:textSize="@dimen/transaction_text_size" />
+
+    <TextView
+        android:id="@+id/transactionComment"
+        style="@style/BlueRegularTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="джерело"
+        android:textSize="@dimen/transaction_text_size" />
+
+    <TextView
+        android:id="@+id/transactionDate"
+        style="@style/YellowRegularTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="@string/default_date"
+        android:textSize="@dimen/transaction_text_size" />
+
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/edit_icon" />
+
+</LinearLayout>

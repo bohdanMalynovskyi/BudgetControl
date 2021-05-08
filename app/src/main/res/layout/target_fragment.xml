@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        style="@style/TextViewStyle"
+        style="@style/BlueMediumTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/target"
@@ -67,7 +67,7 @@
         app:layout_constraintVertical_bias="0.58">
 
         <TextView
-            style="@style/TextViewStyle"
+            style="@style/BlueMediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:letterSpacing="@dimen/letter_spacing_1_25"

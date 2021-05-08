@@ -5,7 +5,7 @@
         <attr name="endDate" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="IncomeCostsCounterView">
+    <declare-styleable name="IncomeCostsCounterGrayButtonView">
         <attr name="isIncome" format="boolean" />
         <attr name="value" format="float" />
     </declare-styleable>
@@ -15,5 +15,11 @@
             <enum name="text" value="0" />
             <enum name="number" value="1" />
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TransactionView">
+        <attr name="value2" format="string" />
+        <attr name="comment" format="string" />
+        <attr name="date" format="string" />
     </declare-styleable>
 </resources>

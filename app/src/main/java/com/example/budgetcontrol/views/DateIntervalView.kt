@@ -19,10 +19,10 @@ class DateIntervalView : LinearLayout {
 
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet){
         init()
-        setParams(context, attributeSet)
+        getAttributes(context, attributeSet)
     }
 
-    private fun setParams(context: Context, attributeSet: AttributeSet?){
+    private fun getAttributes(context: Context, attributeSet: AttributeSet?) {
         val attributes = context.obtainStyledAttributes(attributeSet, R.styleable.DateIntervalView)
         try {
             startDate.text = attributes.getString(R.styleable.DateIntervalView_startDate)

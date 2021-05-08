@@ -8,31 +8,29 @@
         android:id="@+id/budgetFragmentDateIntervalView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endDate="03.01.2000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:endDate="@string/default_date"
+        app:layout_constraintBottom_toTopOf="@+id/balanceLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:startDate="01.01.2000" />
+        app:startDate="@string/default_date" />
 
     <LinearLayout
         android:id="@+id/balanceLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/grayIncomeCostsCounter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15">
+        app:layout_constraintTop_toBottomOf="@+id/budgetFragmentDateIntervalView">
 
         <TextView
-            style="@style/TextViewStyle"
+            style="@style/BlueMediumTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance"
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/balanceValue"
@@ -45,6 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/grayIncomeCostsCounter"
         android:layout_width="300dp"
         android:layout_height="120dp"
         android:orientation="horizontal"
@@ -55,12 +54,12 @@
         app:layout_constraintVertical_bias="0.35">
 
         <!-- add clicklisteners-->
-        <com.example.budgetcontrol.views.IncomeCostsCounterView
+        <com.example.budgetcontrol.views.IncomeCostsCounterGrayButtonView
             android:id="@+id/incomeCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/income_counter_view_background"
+            android:background="@drawable/income_counter_button_view_background"
             app:isIncome="true"
             app:value="100" />
 
@@ -69,12 +68,12 @@
             android:layout_height="match_parent"
             android:background="@color/light_yellow" />
 
-        <com.example.budgetcontrol.views.IncomeCostsCounterView
+        <com.example.budgetcontrol.views.IncomeCostsCounterGrayButtonView
             android:id="@+id/costsCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/costs_counter_view_background"
+            android:background="@drawable/costs_counter_button_view_background"
             app:isIncome="false"
             app:value="200" />
 

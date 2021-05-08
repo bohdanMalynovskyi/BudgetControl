@@ -10,7 +10,8 @@
 
     <color name="primary_yellow">#FAE979</color>
     <color name="light_yellow">#FAEE9C</color>
-    <color name="text_color">#304962</color>
+    <color name="primary_text_color">#304962</color>
+    <color name="light_text_color">#FFF9F1</color>
     <color name="text_view_button_color">#304962</color>
     <color name="light_blue">#BACBD2</color>
     <color name="gray">#C4C4C4</color>

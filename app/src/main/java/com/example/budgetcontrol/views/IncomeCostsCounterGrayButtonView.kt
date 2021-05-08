@@ -8,7 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.budgetcontrol.R
 import kotlinx.android.synthetic.main.income_costs_counter.view.*
 
-class IncomeCostsCounterView : ConstraintLayout {
+class IncomeCostsCounterGrayButtonView : ConstraintLayout {
 
     var isIncome: Boolean = true
     lateinit var value: TextView
@@ -19,22 +19,21 @@ class IncomeCostsCounterView : ConstraintLayout {
 
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
         init()
-        setParams(context, attributeSet)
+        getAttributes(context, attributeSet)
     }
 
-    fun setIncomeOrCosts(isIncome: Boolean) {
-        this.isIncome = isIncome
-        numberSign.text = if (isIncome) "+" else "-"
+    fun setIncomeOrCosts(value: Float) {
+        this.value.text = resources.getString(R.string.income_costs_value_placeholder, if (isIncome) "+" else "-", value.toString())
         incomeCostsTextView.text = resources.getString(if (isIncome) R.string.income else R.string.costs)
     }
 
-    private fun setParams(context: Context, attributeSet: AttributeSet?) {
+    private fun getAttributes(context: Context, attributeSet: AttributeSet?) {
         val attributes =
-            context.obtainStyledAttributes(attributeSet, R.styleable.IncomeCostsCounterView)
+                context.obtainStyledAttributes(attributeSet, R.styleable.IncomeCostsCounterGrayButtonView)
         try {
-            value.text = attributes.getFloat(R.styleable.IncomeCostsCounterView_value, 0F).toString()
-            val isIncomeAttribute = attributes.getBoolean(R.styleable.IncomeCostsCounterView_isIncome, true)
-            setIncomeOrCosts(isIncomeAttribute)
+            val value = attributes.getFloat(R.styleable.IncomeCostsCounterGrayButtonView_value, 0F)
+            isIncome = attributes.getBoolean(R.styleable.IncomeCostsCounterGrayButtonView_isIncome, true)
+            setIncomeOrCosts(value)
         } finally {
             attributes.recycle()
         }
