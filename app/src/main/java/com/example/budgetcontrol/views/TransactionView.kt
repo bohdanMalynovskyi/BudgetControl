@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.transaction_view.view.*
 
 class TransactionView : LinearLayout {
 
-    lateinit var value: TextView
-    lateinit var comment: TextView
-    lateinit var date: TextView
-    lateinit var editButton: ImageView
+    private lateinit var value: TextView
+    private lateinit var comment: TextView
+    private lateinit var date: TextView
+    private lateinit var editButton: ImageView
 
     constructor(context: Context) : super(context) {
         init()

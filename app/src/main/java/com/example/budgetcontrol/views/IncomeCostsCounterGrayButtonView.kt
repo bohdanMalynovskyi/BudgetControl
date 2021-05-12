@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.income_costs_counter.view.*
 
 class IncomeCostsCounterGrayButtonView : ConstraintLayout {
 
-    var isIncome: Boolean = true
-    lateinit var value: TextView
+    private var isIncome: Boolean = true
+    private lateinit var value: TextView
 
     constructor(context: Context) : super(context) {
         init()

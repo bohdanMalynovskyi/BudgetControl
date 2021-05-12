@@ -7,19 +7,28 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.budgetcontrol.R
 import kotlinx.android.synthetic.main.date_interval_view.view.*
+import java.util.*
 
 class DateIntervalView : LinearLayout {
 
-    lateinit var startDate: TextView
-    lateinit var endDate: TextView
+    private lateinit var startDate: TextView
+    private lateinit var endDate: TextView
 
-    constructor(context: Context?) : super(context){
+    constructor(context: Context?) : super(context) {
         init()
     }
 
-    constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet){
+    constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
         init()
         getAttributes(context, attributeSet)
+    }
+
+    fun setStartDate(startDate: Date) {
+        this.startDate.text = startDate.toString()
+    }
+
+    fun setEndDate(endDate: Date) {
+        this.endDate.text = endDate.toString()
     }
 
     private fun getAttributes(context: Context, attributeSet: AttributeSet?) {

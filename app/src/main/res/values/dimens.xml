@@ -5,5 +5,8 @@
     <dimen name="edit_text_height">40dp</dimen>
     <dimen name="transaction_text_size">20sp</dimen>
     <dimen name="transaction_fragment_margin">20dp</dimen>
+    <dimen name="gauss_number_width">42dp</dimen>
+    <dimen name="gauss_number_height">29dp</dimen>
+    <dimen name="gauss_number_text_size">22sp</dimen>
     <item name="letter_spacing_1_25" type="dimen" format="float">0.1</item>
 </resources>

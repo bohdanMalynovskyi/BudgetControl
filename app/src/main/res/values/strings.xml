@@ -10,4 +10,5 @@
     <string name="default_date">01.04.2021</string>
     <string name="income_costs_value_placeholder">%s %s</string>
     <string name="income_costs_value_with_grivnas_placeholder">%s %s грн.</string>
+    <string name="fifty_fifty">5050</string>
 </resources>
