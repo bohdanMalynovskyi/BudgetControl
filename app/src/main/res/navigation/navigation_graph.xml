@@ -7,27 +7,27 @@
 
     <fragment
         android:id="@+id/budgetFragment"
-        android:name="com.example.budgetcontrol.fragments.BudgetFragment"
+        android:name="com.example.budgetcontrol.fragment.BudgetFragment"
         android:label="BudgetFragment"
         tools:layout="@layout/budget_fragment"/>
     <fragment
-        android:id="@+id/fiftyFiftyFragment"
-        android:name="com.example.budgetcontrol.fragments.FiftyFiftyFragment"
+        android:id="@+id/gaussNumbersFragment"
+        android:name="com.example.budgetcontrol.fragment.GaussNumbersFragment"
         android:label="FiftyFiftyFragment"
-        tools:layout="@layout/fifty_fifty_fragment"/>
+        tools:layout="@layout/gauss_numbers_fragment"/>
     <fragment
         android:id="@+id/incomeCostsFragment"
-        android:name="com.example.budgetcontrol.fragments.IncomeCostsFragment"
+        android:name="com.example.budgetcontrol.fragment.IncomeCostsFragment"
         android:label="IncomeCostsFragment"
         tools:layout="@layout/income_costs_fragment"/>
     <fragment
         android:id="@+id/informationFragment"
-        android:name="com.example.budgetcontrol.fragments.InformationFragment"
+        android:name="com.example.budgetcontrol.fragment.InformationFragment"
         android:label="InformationFragment"
         tools:layout="@layout/information_fragment"/>
     <fragment
         android:id="@+id/targetFragment"
-        android:name="com.example.budgetcontrol.fragments.TargetFragment"
+        android:name="com.example.budgetcontrol.fragment.TargetFragment"
         android:label="TargetFragment"
         tools:layout="@layout/target_fragment"/>
 </navigation>

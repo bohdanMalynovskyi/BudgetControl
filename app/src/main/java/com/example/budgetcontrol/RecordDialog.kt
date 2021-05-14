@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.TextView
-import com.example.budgetcontrol.enums.Record
+import com.example.budgetcontrol.enum.Record
 import kotlinx.android.synthetic.main.record_dialog.view.*
 
 class RecordDialog(context: Context, private val recordType: Record) : Dialog(context) {

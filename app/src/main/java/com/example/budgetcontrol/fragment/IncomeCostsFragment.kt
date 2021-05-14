@@ -1,4 +1,4 @@
-package com.example.budgetcontrol.fragments
+package com.example.budgetcontrol.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.budgetcontrol.R
 
-class InformationFragment : Fragment() {
+class IncomeCostsFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.information_fragment, container, false)
+        return inflater.inflate(R.layout.income_costs_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

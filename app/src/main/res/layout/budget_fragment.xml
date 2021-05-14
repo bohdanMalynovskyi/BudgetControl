@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.budgetcontrol.views.DateIntervalView
+    <com.example.budgetcontrol.view.DateIntervalView
         android:id="@+id/budgetFragmentDateIntervalView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:layout_constraintVertical_bias="0.35">
 
         <!-- add clicklisteners-->
-        <com.example.budgetcontrol.views.IncomeCostsCounterGrayButtonView
+        <com.example.budgetcontrol.view.IncomeCostsCounterGrayButtonView
             android:id="@+id/incomeCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -68,7 +68,7 @@
             android:layout_height="match_parent"
             android:background="@color/light_yellow" />
 
-        <com.example.budgetcontrol.views.IncomeCostsCounterGrayButtonView
+        <com.example.budgetcontrol.view.IncomeCostsCounterGrayButtonView
             android:id="@+id/costsCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -92,7 +92,7 @@
         app:layout_constraintVertical_bias="0.62" />
 
     <ImageView
-        android:id="@+id/fiftyFiftyImageView"
+        android:id="@+id/gaussNumbersImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/fifty_fifty"

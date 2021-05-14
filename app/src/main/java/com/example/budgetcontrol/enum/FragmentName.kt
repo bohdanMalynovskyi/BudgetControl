@@ -1,10 +1,10 @@
-package com.example.budgetcontrol.enums
+package com.example.budgetcontrol.enum
 
 enum class FragmentName {
     BUDGET,
     INCOME,
     COSTS,
     TARGET,
-    FIFTY_FIFTY,
+    GAUSS_NUMBERS,
     INFORMATION
 }

@@ -1,4 +1,4 @@
-package com.example.budgetcontrol.enums
+package com.example.budgetcontrol.enum
 
 enum class Record {
     INCOME_TRANSACTION,

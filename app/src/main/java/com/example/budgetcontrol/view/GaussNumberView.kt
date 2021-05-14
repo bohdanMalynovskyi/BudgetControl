@@ -1,4 +1,4 @@
-package com.example.budgetcontrol.views
+package com.example.budgetcontrol.view
 
 import android.content.Context
 import android.view.View

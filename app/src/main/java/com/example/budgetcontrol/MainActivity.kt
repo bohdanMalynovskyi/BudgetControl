@@ -3,10 +3,8 @@ package com.example.budgetcontrol
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.Navigation
-import com.example.budgetcontrol.enums.FragmentName
-import kotlinx.coroutines.internal.artificialFrame
+import com.example.budgetcontrol.enum.FragmentName
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.incomeCostsFragment, bundle)
             }
             FragmentName.TARGET -> navController.navigate(R.id.targetFragment)
-            FragmentName.FIFTY_FIFTY -> navController.navigate(R.id.fiftyFiftyFragment)
+            FragmentName.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
             FragmentName.INFORMATION -> navController.navigate(R.id.informationFragment)
         }
     }

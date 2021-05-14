@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.budgetcontrol.enums.Record
-import com.example.budgetcontrol.models.Transaction
+import com.example.budgetcontrol.enum.Record
+import com.example.budgetcontrol.model.Transaction
 import java.text.SimpleDateFormat
 import java.util.*
 
