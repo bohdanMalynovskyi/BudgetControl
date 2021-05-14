@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.budgetcontrol.enums.TransactionType
+import com.example.budgetcontrol.enums.Record
 import com.example.budgetcontrol.models.Transaction
 import java.text.SimpleDateFormat
 import java.util.*
@@ -161,7 +161,7 @@ class DBAdapter private constructor(context: Context) {
         return amount
     }
 
-    fun getTotalIncomeOrCosts(requestedTransactionType: TransactionType): Float {
+    fun getTotalIncomeOrCosts(requestedRecord: Record): Float {
 //        openDB()
 //
 //        // TODO replace with getTransaction method
@@ -190,7 +190,7 @@ class DBAdapter private constructor(context: Context) {
 //        db.close()
 
         var totalAmount = 0F
-        val transactionList = getAllTransactions(requestedTransactionType)
+        val transactionList = getAllTransactions(requestedRecord)
         transactionList.forEach { transaction ->
             totalAmount += transaction.amount
         }
@@ -201,7 +201,7 @@ class DBAdapter private constructor(context: Context) {
     // TODO add these methods to transaction class
     private
 
-    fun getAllTransactions(requestedTransactionType: TransactionType): List<Transaction> {
+    fun getAllTransactions(requestedRecord: Record): List<Transaction> {
         openDB()
 
         val cursor = db.query(
@@ -228,9 +228,9 @@ class DBAdapter private constructor(context: Context) {
 
             //val currentTransactionType = if (transaction.amount > 0) TransactionType.INCOME else TransactionType.COSTS
             val currentTransactionType = Transaction.getCurrentTrntype(transaction.amount)
-            if (requestedTransactionType == TransactionType.INCOME && currentTransactionType == TransactionType.INCOME) {
+            if (requestedRecord == Record.INCOME_TRANSACTION && currentTransactionType == Record.INCOME_TRANSACTION) {
                 transactionList.add(transaction)
-            } else if (requestedTransactionType == TransactionType.COSTS && currentTransactionType == TransactionType.COSTS) {
+            } else if (requestedRecord == Record.COSTS_TRANSACTION && currentTransactionType == Record.COSTS_TRANSACTION) {
                 transactionList.add(transaction)
             }
         }

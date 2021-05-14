@@ -11,4 +11,9 @@
     <string name="income_costs_value_placeholder">%s %s</string>
     <string name="income_costs_value_with_grivnas_placeholder">%s %s грн.</string>
     <string name="fifty_fifty">5050</string>
+    <string name="to_record">записати</string>
+    <string name="default_edit_text_hint">0,0</string>
+    <string name="source">джерело</string>
+    <string name="costs_edit_text_hint">на що</string>
+    <string name="target_description">опис цілі</string>
 </resources>

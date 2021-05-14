@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/budgetFragment">
+
+    <fragment
+        android:id="@+id/budgetFragment"
+        android:name="com.example.budgetcontrol.fragments.BudgetFragment"
+        android:label="BudgetFragment"
+        tools:layout="@layout/budget_fragment"/>
+    <fragment
+        android:id="@+id/fiftyFiftyFragment"
+        android:name="com.example.budgetcontrol.fragments.FiftyFiftyFragment"
+        android:label="FiftyFiftyFragment"
+        tools:layout="@layout/fifty_fifty_fragment"/>
+    <fragment
+        android:id="@+id/incomeCostsFragment"
+        android:name="com.example.budgetcontrol.fragments.IncomeCostsFragment"
+        android:label="IncomeCostsFragment"
+        tools:layout="@layout/income_costs_fragment"/>
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.budgetcontrol.fragments.InformationFragment"
+        android:label="InformationFragment"
+        tools:layout="@layout/information_fragment"/>
+    <fragment
+        android:id="@+id/targetFragment"
+        android:name="com.example.budgetcontrol.fragments.TargetFragment"
+        android:label="TargetFragment"
+        tools:layout="@layout/target_fragment"/>
+</navigation>
