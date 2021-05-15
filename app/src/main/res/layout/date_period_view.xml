@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/startDate"
         style="@style/DateTextViewStyle"
-        android:text="01.01.2000" />
+        android:text="@string/from" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -21,6 +21,6 @@
     <TextView
         android:id="@+id/endDate"
         style="@style/DateTextViewStyle"
-        android:text="01.01.2000" />
+        android:text="@string/till" />
 
 </LinearLayout>

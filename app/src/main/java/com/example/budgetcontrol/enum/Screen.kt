@@ -1,6 +1,6 @@
 package com.example.budgetcontrol.enum
 
-enum class FragmentName {
+enum class Screen {
     BUDGET,
     INCOME,
     COSTS,

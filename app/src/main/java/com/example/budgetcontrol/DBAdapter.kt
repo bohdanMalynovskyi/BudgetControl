@@ -5,7 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.budgetcontrol.enum.Record
-import com.example.budgetcontrol.model.Transaction
+import com.example.budgetcontrol.db.model.Transaction
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -66,18 +66,18 @@ class DBAdapter private constructor(context: Context) {
 
     //TODO add gauss number target row after target table creation
 
-    fun addTransaction(transaction: Transaction) {
-        //TODO amount must be with sign
-        openDB()
-
-        val values = ContentValues()
-        values.put(AMOUNT, transaction.amount)
-        values.put(DATE, convertDateToString(transaction.date))
-        values.put(COMMENT, transaction.comment)
-        db.insert(TABLE_TRANSACTIONS, null, values)
-
-        db.close()
-    }
+//    fun addTransaction(transaction: Transaction) {
+//        //TODO amount must be with sign
+//        openDB()
+//
+//        val values = ContentValues()
+//        values.put(AMOUNT, transaction.amount)
+//        values.put(DATE, convertDateToString(transaction.date))
+//        values.put(COMMENT, transaction.comment)
+//        db.insert(TABLE_TRANSACTIONS, null, values)
+//
+//        db.close()
+//    }
 
     fun addNewTarget(description: String, targetAmount: Float) {
         openDB()
@@ -114,7 +114,7 @@ class DBAdapter private constructor(context: Context) {
 
         val values = ContentValues()
         values.put(AMOUNT, transaction.amount)
-        values.put(DATE, convertDateToString(transaction.date))
+//        values.put(DATE, convertDateToString(transaction.date))
         values.put(COMMENT, transaction.comment)
         db.update(TABLE_TRANSACTIONS, values, "$ID =", arrayOf(transaction.id.toString()))
 
@@ -161,84 +161,81 @@ class DBAdapter private constructor(context: Context) {
         return amount
     }
 
-    fun getTotalIncomeOrCosts(requestedRecord: Record): Float {
+//    fun getTotalIncomeOrCosts(requestedRecord: Record): Float {
+////        openDB()
+////
+////        // TODO replace with getTransaction method
+////        val cursor = db.query(
+////                TABLE_TRANSACTIONS,
+////                arrayOf(AMOUNT),
+////                null,
+////                null,
+////                null,
+////                null,
+////                null
+////        )
+////        var totalIncome = 0F
+////
+////        while (cursor.moveToNext()) {
+////            val transaction = cursor.getFloat(0)
+////            val currentTransactionType = if (transaction > 0) TransactionType.INCOME else TransactionType.COSTS
+////            if (requestedTransactionType == TransactionType.INCOME && currentTransactionType == TransactionType.INCOME) {
+////                totalIncome += transaction
+////            } else if (requestedTransactionType == TransactionType.COSTS && currentTransactionType == TransactionType.COSTS) {
+////                totalIncome += abs(transaction)
+////            }
+////        }
+////
+////        cursor.close()
+////        db.close()
+//
+//        var totalAmount = 0F
+//        val transactionList = getAllTransactions(requestedRecord)
+//        transactionList.forEach { transaction ->
+//            totalAmount += transaction.amount
+//        }
+//
+//        return totalAmount
+//    }
+
+//    fun getAllTransactions(requestedRecord: Record): List<Transaction> {
 //        openDB()
 //
-//        // TODO replace with getTransaction method
 //        val cursor = db.query(
 //                TABLE_TRANSACTIONS,
-//                arrayOf(AMOUNT),
+//                null,
 //                null,
 //                null,
 //                null,
 //                null,
 //                null
 //        )
-//        var totalIncome = 0F
+//        val transactionList = ArrayList<Transaction>()
+//        val idColumnIndex = cursor.getColumnIndex(ID)
+//        val amountColumnIndex = cursor.getColumnIndex(AMOUNT)
+//        val dateColumnIndex = cursor.getColumnIndex(DATE)
+//        val commentColumnIndex = cursor.getColumnIndex(COMMENT)
 //
 //        while (cursor.moveToNext()) {
-//            val transaction = cursor.getFloat(0)
-//            val currentTransactionType = if (transaction > 0) TransactionType.INCOME else TransactionType.COSTS
-//            if (requestedTransactionType == TransactionType.INCOME && currentTransactionType == TransactionType.INCOME) {
-//                totalIncome += transaction
-//            } else if (requestedTransactionType == TransactionType.COSTS && currentTransactionType == TransactionType.COSTS) {
-//                totalIncome += abs(transaction)
+//            val id = cursor.getInt(idColumnIndex)
+//            val amount = cursor.getFloat(amountColumnIndex)
+//            val date = convertStringToDate(cursor.getString(dateColumnIndex))
+//            val comment = cursor.getString(commentColumnIndex)
+//            val transaction = Transaction(id, amount, date, comment)
+//
+//            //val currentTransactionType = if (transaction.amount > 0) TransactionType.INCOME else TransactionType.COSTS
+//            val currentTransactionType = Transaction.getCurrentTrntype(transaction.amount)
+//            if (requestedRecord == Record.INCOME_TRANSACTION && currentTransactionType == Record.INCOME_TRANSACTION) {
+//                transactionList.add(transaction)
+//            } else if (requestedRecord == Record.COSTS_TRANSACTION && currentTransactionType == Record.COSTS_TRANSACTION) {
+//                transactionList.add(transaction)
 //            }
 //        }
 //
 //        cursor.close()
 //        db.close()
-
-        var totalAmount = 0F
-        val transactionList = getAllTransactions(requestedRecord)
-        transactionList.forEach { transaction ->
-            totalAmount += transaction.amount
-        }
-
-        return totalAmount
-    }
-
-    // TODO add these methods to transaction class
-    private
-
-    fun getAllTransactions(requestedRecord: Record): List<Transaction> {
-        openDB()
-
-        val cursor = db.query(
-                TABLE_TRANSACTIONS,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        )
-        val transactionList = ArrayList<Transaction>()
-        val idColumnIndex = cursor.getColumnIndex(ID)
-        val amountColumnIndex = cursor.getColumnIndex(AMOUNT)
-        val dateColumnIndex = cursor.getColumnIndex(DATE)
-        val commentColumnIndex = cursor.getColumnIndex(COMMENT)
-
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(idColumnIndex)
-            val amount = cursor.getFloat(amountColumnIndex)
-            val date = convertStringToDate(cursor.getString(dateColumnIndex))
-            val comment = cursor.getString(commentColumnIndex)
-            val transaction = Transaction(id, amount, date, comment)
-
-            //val currentTransactionType = if (transaction.amount > 0) TransactionType.INCOME else TransactionType.COSTS
-            val currentTransactionType = Transaction.getCurrentTrntype(transaction.amount)
-            if (requestedRecord == Record.INCOME_TRANSACTION && currentTransactionType == Record.INCOME_TRANSACTION) {
-                transactionList.add(transaction)
-            } else if (requestedRecord == Record.COSTS_TRANSACTION && currentTransactionType == Record.COSTS_TRANSACTION) {
-                transactionList.add(transaction)
-            }
-        }
-
-        cursor.close()
-        db.close()
-        return transactionList
-    }
+//        return transactionList
+//    }
 
     //fun getTransactionByDate()
 

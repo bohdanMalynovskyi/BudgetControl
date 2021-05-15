@@ -5,15 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.example.budgetcontrol.view.DateIntervalView
+    <com.example.budgetcontrol.view.DatePeriodView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="@dimen/transaction_fragment_margin"
-        app:endDate="@string/default_date"
-        app:startDate="@string/default_date" />
-
-    <!-- ADD TEXT PLACEHOLDER -->
+        android:layout_marginVertical="@dimen/transaction_fragment_margin" />
 
     <TextView
         android:id="@+id/incomeCostsYellowCounter"

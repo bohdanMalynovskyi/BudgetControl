@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.budgetcontrol.enum.FragmentName
+import com.example.budgetcontrol.enum.Screen
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,21 +19,17 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.fragment_container)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-
-    fun navigateToFragment(fragment: FragmentName){
+    fun navigateToFragment(fragment: Screen){
         when(fragment){
-            FragmentName.BUDGET -> navController.navigate(R.id.budgetFragment)
-            FragmentName.INCOME, FragmentName.COSTS -> {
+            Screen.BUDGET -> navController.navigate(R.id.budgetFragment)
+            Screen.INCOME, Screen.COSTS -> {
                 val bundle = Bundle()
                 bundle.putSerializable(FRAGMENT, fragment)
                 navController.navigate(R.id.incomeCostsFragment, bundle)
             }
-            FragmentName.TARGET -> navController.navigate(R.id.targetFragment)
-            FragmentName.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
-            FragmentName.INFORMATION -> navController.navigate(R.id.informationFragment)
+            Screen.TARGET -> navController.navigate(R.id.targetFragment)
+            Screen.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
+            Screen.INFORMATION -> navController.navigate(R.id.informationFragment)
         }
     }
 }

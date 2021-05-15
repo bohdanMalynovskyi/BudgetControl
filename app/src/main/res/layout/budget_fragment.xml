@@ -4,16 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.budgetcontrol.view.DateIntervalView
-        android:id="@+id/budgetFragmentDateIntervalView"
+    <com.example.budgetcontrol.view.DatePeriodView
+        android:id="@+id/budgetFragmentDatePeriodView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:endDate="@string/default_date"
         app:layout_constraintBottom_toTopOf="@+id/balanceLinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:startDate="@string/default_date" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/balanceLinearLayout"
@@ -23,7 +21,7 @@
         app:layout_constraintBottom_toTopOf="@+id/grayIncomeCostsCounter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budgetFragmentDateIntervalView">
+        app:layout_constraintTop_toBottomOf="@+id/budgetFragmentDatePeriodView">
 
         <TextView
             style="@style/BlueMediumTextStyle"
@@ -54,28 +52,26 @@
         app:layout_constraintVertical_bias="0.35">
 
         <!-- add clicklisteners-->
-        <com.example.budgetcontrol.view.IncomeCostsCounterGrayButtonView
+        <com.example.budgetcontrol.view.BudgetCounterGrayButtonView
             android:id="@+id/incomeCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/income_counter_button_view_background"
-            app:isIncome="true"
-            app:value="100" />
+            app:budget_component="income" />
 
         <View
             android:layout_width="3dp"
             android:layout_height="match_parent"
             android:background="@color/light_yellow" />
 
-        <com.example.budgetcontrol.view.IncomeCostsCounterGrayButtonView
+        <com.example.budgetcontrol.view.BudgetCounterGrayButtonView
             android:id="@+id/costsCounter"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/costs_counter_button_view_background"
-            app:isIncome="false"
-            app:value="200" />
+            app:budget_component="costs" />
 
     </LinearLayout>
 

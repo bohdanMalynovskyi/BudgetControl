@@ -32,7 +32,7 @@
     </style>
 
     <style name="DateTextViewStyle" parent="BlueMediumTextStyle">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:background">@color/light_yellow</item>
         <item name="android:gravity">center</item>
