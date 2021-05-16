@@ -2,7 +2,6 @@ package com.example.budgetcontrol.db.dao
 
 import androidx.room.*
 import com.example.budgetcontrol.db.model.Transaction
-import java.util.*
 
 @Dao
 interface TransactionDao {
@@ -13,14 +12,20 @@ interface TransactionDao {
     fun update(transaction: Transaction)
 
     @Query("select amount from `Transaction` where amount > 0")
-    fun getAllIncomeAmounts(): List<Int>
+    fun getAllIncomeAmounts(): List<Float>
 
     @Query("select amount from `Transaction` where amount < 0")
-    fun getAllCostsAmounts(): List<Int>
+    fun getAllCostsAmounts(): List<Float>
 
-    @Query("select * from `transaction`")
-    fun getAll(): List<Transaction>
+    @Query("select * from `Transaction` where amount > 0")
+    fun getAllIncome(): List<Transaction>
 
-    @Query("select * from `transaction` where date between :startDate and :endDate")
-    fun getAllByDate(startDate: String, endDate: String): List<Transaction>
+    @Query("select * from `Transaction` where amount < 0")
+    fun getAllCosts(): List<Transaction>
+
+    @Query("select * from `transaction` where date between :startDate and :endDate and amount > 0")
+    fun getAllIncomeByDate(startDate: String, endDate: String): List<Transaction>
+
+    @Query("select * from `transaction` where date between :startDate and :endDate and amount < 0")
+    fun getAllCostsByDate(startDate: String, endDate: String): List<Transaction>
 }

@@ -8,11 +8,10 @@
     <string name="contribution">внесок</string>
     <string name="to_confirm">підтвердити</string>
     <string name="default_date">01.04.2021</string>
-    <string name="income_costs_value_placeholder">%s %d</string>
-    <string name="income_costs_value_with_grivnas_placeholder">%s %s грн.</string>
+    <string name="income_costs_value_placeholder">%s %.1f</string>
+    <string name="income_costs_value_with_grivnas_placeholder">%s %.1f грн.</string>
     <string name="fifty_fifty">5050</string>
     <string name="to_record">записати</string>
-    <string name="default_edit_text_hint">0,0</string>
     <string name="source">джерело</string>
     <string name="costs_edit_text_hint">на що</string>
     <string name="target_description">опис цілі</string>

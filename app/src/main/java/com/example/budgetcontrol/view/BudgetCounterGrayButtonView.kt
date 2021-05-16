@@ -9,21 +9,19 @@ import com.example.budgetcontrol.R
 import com.example.budgetcontrol.enum.BudgetComponent
 import kotlinx.android.synthetic.main.income_costs_counter.view.*
 
-class BudgetCounterGrayButtonView : ConstraintLayout {
+class BudgetCounterGrayButtonView(context: Context, attributeSet: AttributeSet?) : ConstraintLayout(context, attributeSet) {
 
     private lateinit var budgetComponent: BudgetComponent
-    private lateinit var value: TextView
+    private var value: TextView
 
-    constructor(context: Context) : super(context) {
-        init()
-    }
+    init {
+        val view = View.inflate(context, R.layout.income_costs_counter, this)
+        value = view.incomeCostsValue
 
-    constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
-        init()
         getAttributes(context, attributeSet)
     }
 
-    fun setValue(value: Int) {
+    fun setValue(value: Float) {
         this.value.text = resources.getString(
                 R.string.income_costs_value_placeholder,
                 when (budgetComponent) {
@@ -56,10 +54,5 @@ class BudgetCounterGrayButtonView : ConstraintLayout {
         } finally {
             attributes.recycle()
         }
-    }
-
-    private fun init() {
-        val view = View.inflate(context, R.layout.income_costs_counter, this)
-        value = view.incomeCostsValue
     }
 }

@@ -21,7 +21,7 @@ abstract class BudgetControlDB : RoomDatabase() {
     abstract fun gaussNumberDao(): GaussNumberDao
 
     companion object {
-        private val DATABASE = "DATABASE"
+        private val DATABASE = "BudgetControl"
 
         private var instance: BudgetControlDB? = null
 
@@ -46,7 +46,7 @@ abstract class BudgetControlDB : RoomDatabase() {
         private fun populateDatabase(db: BudgetControlDB) {
             val gaussNumbersList = ArrayList<GaussNumber>()
             for (value in 1..100) {
-                gaussNumbersList.add(GaussNumber(value, false))
+                gaussNumbersList.add(GaussNumber(value.toFloat(), false))
             }
             val target = Target(
                 Target.GAUSS_NUMBER_TARGET_ID,

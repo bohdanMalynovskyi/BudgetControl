@@ -4,18 +4,19 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.budgetcontrol.view.DatePeriodView.Companion.DATE_FORMAT
 
 @Entity
 data class Transaction(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val amount: Int,
+    val amount: Float,
     val date: String,
     val comment: String
 ) {
-    constructor(amount: Int, comment: String) : this(
+    constructor(amount: Float, comment: String) : this(
         0,
         amount,
-        SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date()),
+        SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(Date()),
         comment
     )
 }

@@ -1,7 +1,7 @@
 package com.example.budgetcontrol.view
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -9,8 +9,10 @@ import android.widget.TextView
 import com.example.budgetcontrol.R
 import com.example.budgetcontrol.db.model.Transaction
 import kotlinx.android.synthetic.main.transaction_view.view.*
+import kotlin.math.abs
 
-class TransactionView(context: Context) : LinearLayout(context) {
+@SuppressLint("ViewConstructor")
+class TransactionView(context: Context, transaction: Transaction) : LinearLayout(context) {
 
     private var value: TextView
     private var comment: TextView
@@ -21,14 +23,19 @@ class TransactionView(context: Context) : LinearLayout(context) {
         val view = View.inflate(context, R.layout.transaction_view, this)
 
         value = view.transactionValue
-        comment = view.transactionComment
-        date = view.transactionDate
-        editButton = view.editButton
-    }
+        value.text = context.getString(
+                R.string.income_costs_value_placeholder,
+                if (transaction.amount > 0) "+" else "-",
+                abs(transaction.amount)
+        )
 
-    fun setTransaction(transaction: Transaction) {
-        this.value.text = transaction.amount.toString()
-        this.comment.text = transaction.comment
-        this.date.text = transaction.date
+        comment = view.transactionComment
+        comment.text = transaction.comment
+
+        date = view.transactionDate
+        date.text = transaction.date
+
+        editButton = view.editButton
+//        editButton.setOnClickListener()
     }
 }

@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/balance"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/balanceValue"
@@ -36,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="00" />
+            android:text="0.0" />
 
     </LinearLayout>
 

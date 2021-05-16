@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.budgetcontrol.enum.Screen
+import com.example.budgetcontrol.enum.BudgetComponent
+import com.example.budgetcontrol.enum.FragmentType
 
 class MainActivity : AppCompatActivity() {
 
-    private val FRAGMENT: String = "FRAGMENT"
+    companion object{
+        const val BUDGET_COMPONENT: String = "BUDGET_COMPONENT"
+    }
 
     private lateinit var navController: NavController
 
@@ -19,17 +22,20 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.fragment_container)
     }
 
-    fun navigateToFragment(fragment: Screen){
+    fun navigateToFragment(fragment: FragmentType){
         when(fragment){
-            Screen.BUDGET -> navController.navigate(R.id.budgetFragment)
-            Screen.INCOME, Screen.COSTS -> {
-                val bundle = Bundle()
-                bundle.putSerializable(FRAGMENT, fragment)
-                navController.navigate(R.id.incomeCostsFragment, bundle)
-            }
-            Screen.TARGET -> navController.navigate(R.id.targetFragment)
-            Screen.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
-            Screen.INFORMATION -> navController.navigate(R.id.informationFragment)
+            FragmentType.BUDGET -> navController.navigate(R.id.budgetFragment)
+            FragmentType.INCOME -> navigateToIncomeCostsFragment(BudgetComponent.INCOME)
+            FragmentType.COSTS -> navigateToIncomeCostsFragment(BudgetComponent.COSTS)
+            FragmentType.TARGET -> navController.navigate(R.id.targetFragment)
+            FragmentType.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
+            FragmentType.INFORMATION -> navController.navigate(R.id.informationFragment)
         }
+    }
+
+    private fun navigateToIncomeCostsFragment(budgetComponent: BudgetComponent){
+        val bundle = Bundle()
+        bundle.putSerializable(BUDGET_COMPONENT, budgetComponent)
+        navController.navigate(R.id.incomeCostsFragment, bundle)
     }
 }

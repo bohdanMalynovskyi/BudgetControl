@@ -1,10 +1,9 @@
-package com.example.budgetcontrol
+package com.example.budgetcontrol.db
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.budgetcontrol.enum.Record
 import com.example.budgetcontrol.db.model.Transaction
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,7 +90,10 @@ class DBAdapter private constructor(context: Context) {
         if (isTargetNotSet) {
             db.insert(TABLE_TARGETS, null, values)
         } else {
-            db.update(TABLE_TARGETS, values, "$TARGET_DESCRIPTION !=", arrayOf(GAUSS_NUMBERS_TARGET_DESCRIPTION))
+            db.update(
+                TABLE_TARGETS, values, "$TARGET_DESCRIPTION !=", arrayOf(
+                    GAUSS_NUMBERS_TARGET_DESCRIPTION
+                ))
         }
 
         db.close()
@@ -103,7 +105,10 @@ class DBAdapter private constructor(context: Context) {
 
         val values = ContentValues()
         values.put(COLLECTED_AMOUNT, getTargetCollectedAmount(false) + contributionAmount)
-        db.update(TABLE_TARGETS, values, "$TARGET_DESCRIPTION !=", arrayOf(GAUSS_NUMBERS_TARGET_DESCRIPTION))
+        db.update(
+            TABLE_TARGETS, values, "$TARGET_DESCRIPTION !=", arrayOf(
+                GAUSS_NUMBERS_TARGET_DESCRIPTION
+            ))
 
         db.close()
     }

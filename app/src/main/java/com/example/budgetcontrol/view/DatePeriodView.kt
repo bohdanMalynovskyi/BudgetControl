@@ -16,7 +16,9 @@ class DatePeriodView(
     attributeSet: AttributeSet?
 ) : LinearLayout(context, attributeSet) {
 
-    private val DATE_FORMAT = "dd-MM-yyyy"
+    companion object{
+        const val DATE_FORMAT = "dd-MM-yyyy"
+    }
 
     private lateinit var startDate: TextView
     private lateinit var endDate: TextView
