@@ -7,7 +7,7 @@ import android.widget.TextView
 import com.example.budgetcontrol.R
 import kotlinx.android.synthetic.main.gauss_number_view.view.*
 
-class GaussNumberView(context: Context?) : LinearLayout(context) {
+class GaussNumberView(context: Context?, value: Int) : LinearLayout(context) {
 
     private var gaussNumber: TextView
     private var isCollected: Boolean = false
@@ -15,18 +15,19 @@ class GaussNumberView(context: Context?) : LinearLayout(context) {
     init {
         val view = View.inflate(context, R.layout.gauss_number_view, this)
         gaussNumber = view.gaussNumberTextView
-        setup()
+        gaussNumber.text = value.toString()
     }
 
-    fun setGaussNumberText(number: String) {
-        gaussNumber.text = number
+    fun getValue(): Int {
+        return gaussNumber.text.toString().toInt()
     }
 
-    private fun setup() {
-        setOnClickListener {
-            collectedGaussNumberImageView.visibility = if (!isCollected) VISIBLE else INVISIBLE
-            isCollected = !isCollected
-            //todo send broadcast
-        }
+    fun setStatus(isCollected: Boolean) {
+        collectedGaussNumberImageView.visibility = if (isCollected) VISIBLE else INVISIBLE
+        this.isCollected = isCollected
+    }
+
+    fun isCollected(): Boolean {
+        return isCollected
     }
 }

@@ -20,6 +20,8 @@ abstract class BudgetControlDB : RoomDatabase() {
     abstract fun targetDao(): TargetDao
     abstract fun gaussNumberDao(): GaussNumberDao
 
+    //TODO use LiveData
+
     companion object {
         private val DATABASE = "BudgetControl"
 
@@ -46,7 +48,7 @@ abstract class BudgetControlDB : RoomDatabase() {
         private fun populateDatabase(db: BudgetControlDB) {
             val gaussNumbersList = ArrayList<GaussNumber>()
             for (value in 1..100) {
-                gaussNumbersList.add(GaussNumber(value.toFloat(), false))
+                gaussNumbersList.add(GaussNumber(value, false))
             }
             val target = Target(
                 Target.GAUSS_NUMBER_TARGET_ID,

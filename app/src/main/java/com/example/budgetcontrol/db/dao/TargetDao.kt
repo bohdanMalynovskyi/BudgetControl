@@ -12,11 +12,11 @@ interface TargetDao {
     fun update(target: Target)
 
     @Query("select amount from target where id = :id")
-    fun getTargetAmount(id: Int): Float
+    fun getTargetAmount(id: Int): Int
 
     @Query("select collected_amount from target where id = :id")
-    fun getTargetCollectedAmount(id: Int): Float
+    fun getTargetCollectedAmount(id: Int): Int
 
     @Query("update target set collected_amount = :amount where id = :id")
-    fun updateTargetCollectedAmount(id: Int, amount: Float)
+    fun updateTargetCollectedAmount(id: Int, amount: Int)
 }
