@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.budgetcontrol.MainActivity
-import com.example.budgetcontrol.R
+import com.example.budgetcontrol.*
 import com.example.budgetcontrol.db.BudgetControlDB
 import com.example.budgetcontrol.enum.BudgetComponent
 import com.example.budgetcontrol.enum.FragmentType
@@ -18,9 +17,9 @@ import kotlin.math.abs
 class BudgetFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.budget_fragment, container, false)
     }
@@ -30,6 +29,13 @@ class BudgetFragment : Fragment() {
         fetchData()
 
         setupNavigationButtonsOnClickListeners()
+        budgetFragmentDatePeriodView.setDatePickerOnDateSetListener(this::handleDateSet)
+    }
+
+    private fun handleDateSet(){
+        budgetFragmentDatePeriodView.apply {
+            fetchData(getStartDate(), getEndDate())
+        }
     }
 
     private fun setupNavigationButtonsOnClickListeners() {
@@ -46,10 +52,10 @@ class BudgetFragment : Fragment() {
         }
     }
 
-    private fun fetchData() {
+    private fun fetchData(startDate: String? = null, endDate: String? = null) {
         GlobalScope.launch {
-            val income = getTotalIncomeCostsAmount(BudgetComponent.INCOME)
-            val costs = abs(getTotalIncomeCostsAmount(BudgetComponent.COSTS))
+            val income = getTotalIncomeCostsAmount(BudgetComponent.INCOME, startDate, endDate)
+            val costs = abs(getTotalIncomeCostsAmount(BudgetComponent.COSTS, startDate, endDate))
             val balance = income - costs
 
             activity?.runOnUiThread {
@@ -58,18 +64,28 @@ class BudgetFragment : Fragment() {
                 balanceValue.text = getString(
                         R.string.income_costs_value_placeholder,
                         if (balance < 0) "-" else "",
-                        balance
+                        abs(balance)
                 )
             }
         }
     }
 
-    private fun getTotalIncomeCostsAmount(budgetComponent: BudgetComponent): Float {
+    private fun getTotalIncomeCostsAmount(budgetComponent: BudgetComponent, startDate: String?, endDate: String?): Float {
         var totalAmount = 0f
         val transactionDao = BudgetControlDB.getInstance(requireContext()).transactionDao()
         val allAmounts = when (budgetComponent) {
-            BudgetComponent.INCOME -> transactionDao.getAllIncomeAmounts()
-            BudgetComponent.COSTS -> transactionDao.getAllCostsAmounts()
+            BudgetComponent.INCOME ->{
+                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                    transactionDao.getAllIncomeAmounts()
+                else
+                    transactionDao.getAllIncomeAmountsByDate(startDate, endDate)
+            }
+            BudgetComponent.COSTS -> {
+                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                    transactionDao.getAllCostsAmounts()
+                else
+                    transactionDao.getAllCostsAmountsByDate(startDate, endDate)
+            }
         }
         allAmounts.forEach { value ->
             totalAmount += value

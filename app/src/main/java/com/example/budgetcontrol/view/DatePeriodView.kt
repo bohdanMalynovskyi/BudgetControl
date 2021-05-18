@@ -20,8 +20,12 @@ class DatePeriodView(
         const val DATE_FORMAT = "dd-MM-yyyy"
     }
 
+    //todo save dates sorting untill app closes
+
     private lateinit var startDate: TextView
     private lateinit var endDate: TextView
+
+    private var onDateSetListener: (() -> Unit?)? = null
 
     init {
         init()
@@ -29,26 +33,38 @@ class DatePeriodView(
         setDateTextViewOnClickListener(endDate)
     }
 
+    fun setDatePickerOnDateSetListener(listener: () -> Unit){
+        onDateSetListener = listener
+    }
+
+    fun getStartDate(): String{
+        return startDate.text.toString()
+    }
+
+    fun getEndDate(): String{
+        return endDate.text.toString()
+    }
+
     private fun setDate(view: TextView, date: Calendar) {
         val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
         view.text = dateFormat.format(date.time)
-        //todo refresh data in fragment
     }
 
-    private fun setDateTextViewOnClickListener(view: TextView) {
+    private fun setDateTextViewOnClickListener(textView: TextView) {
         val calendar = Calendar.getInstance()
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             calendar.set(year, month, dayOfMonth)
-            setDate(view, calendar)
+            setDate(textView, calendar)
+            onDateSetListener?.invoke()
         }
 
-        view.setOnClickListener {
+        textView.setOnClickListener {
             DatePickerDialog(
                 context,
                 dateSetListener,
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_WEEK),
+                calendar.get(Calendar.DAY_OF_MONTH),
             ).show()
         }
     }
@@ -57,5 +73,22 @@ class DatePeriodView(
         val view = View.inflate(context, R.layout.date_period_view, this)
         startDate = view.startDate
         endDate = view.endDate
+
+        setDefaultDates()
+    }
+
+    private fun setDefaultDates(){
+        val oneMonthAgoDate = Calendar.getInstance()
+        val currentDate = Calendar.getInstance()
+        val previousMonth = currentDate.get(Calendar.MONTH) - 1
+
+        oneMonthAgoDate.set(
+                currentDate.get(Calendar.YEAR),
+                previousMonth,
+                currentDate.get(Calendar.DAY_OF_MONTH)
+        )
+
+        setDate(startDate, oneMonthAgoDate)
+        setDate(endDate, currentDate)
     }
 }
