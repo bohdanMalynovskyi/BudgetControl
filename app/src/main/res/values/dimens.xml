@@ -9,5 +9,6 @@
     <dimen name="gauss_number_height">29dp</dimen>
     <dimen name="gauss_number_text_size">22sp</dimen>
     <dimen name="numeric_edit_text_width">180dp</dimen>
+    <dimen name="dialog_background_radius">45dp</dimen>
     <item name="letter_spacing_1_25" type="dimen" format="float">0.1</item>
 </resources>

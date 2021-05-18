@@ -17,4 +17,5 @@
     <string name="target_description">опис цілі</string>
     <string name="from">З</string>
     <string name="till">По</string>
+    <string name="you_want_to_cancel_contribution">Ви дійсно хочете відмінити вклад ?</string>
 </resources>

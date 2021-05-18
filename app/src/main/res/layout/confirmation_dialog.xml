@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/confirmation_dialog_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="25dp">
+
+    <ImageView
+        android:id="@+id/confirmationDialogCloseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:src="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/confirmationDialogTextView"
+        style="@style/BlueRegularTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:paddingHorizontal="40dp"
+        android:text="@string/you_want_to_cancel_contribution"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/dialogConfirmButton"
+        style="@style/TextViewButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/to_confirm"
+        android:textColor="@color/confirmation_dialog_background_color" />
+
+</LinearLayout>

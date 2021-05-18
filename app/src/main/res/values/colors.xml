@@ -16,8 +16,9 @@
     <color name="light_blue">#BACBD2</color>
     <color name="primary_background_color">#FFF9F1</color>
 
-    <color name="dialog_background_color">#FFFFFF</color>
+    <color name="record_dialog_background_color">#FFFFFF</color>
     <color name="income_costs_counter_color">#C4C4C4</color>
     <color name="gauss_number_text_color">#6F7071</color>
     <color name="gauss_number_border_color">#C7C9CB</color>
+    <color name="confirmation_dialog_background_color">#FAEE9C</color>
 </resources>

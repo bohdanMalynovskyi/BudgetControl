@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.budgetcontrol.MainActivity
 import com.example.budgetcontrol.R
 import com.example.budgetcontrol.db.BudgetControlDB
 import com.example.budgetcontrol.db.model.Target
+import com.example.budgetcontrol.dialog.ConfirmationDialog
+import com.example.budgetcontrol.enum.FragmentType
 import com.example.budgetcontrol.view.GaussNumberView
 import kotlinx.android.synthetic.main.gauss_numbers_fragment.*
 import kotlinx.coroutines.GlobalScope
@@ -31,7 +34,7 @@ class GaussNumbersFragment : Fragment() {
         fillGaussNumbersLayout()
         setCollectedAmount()
         gaussNumbersSeekBar.isEnabled = false
-        confirmButton.setOnClickListener(this::handleConfirmButtonClick)
+        gaussNumbersFragmentConfirmButton.setOnClickListener(this::handleConfirmButtonClick)
     }
 
     private fun setCollectedAmount() {
@@ -76,6 +79,23 @@ class GaussNumbersFragment : Fragment() {
         val gaussNumber = view as GaussNumberView
 
         gaussNumber.apply {
+            if (isCollected()) {
+                val dialog = ConfirmationDialog(context, getString(R.string.you_want_to_cancel_contribution))
+                dialog.apply {
+                    confirmButton.setOnClickListener {
+                        changeGaussNumberStatus(gaussNumber)
+                        dismiss()
+                    }
+                    show()
+                }
+            } else {
+                changeGaussNumberStatus(gaussNumber)
+            }
+        }
+    }
+
+    private fun changeGaussNumberStatus(gaussNumber: GaussNumberView) {
+        gaussNumber.apply {
             val isCollected = !isCollected()
             setStatus(isCollected)
             changedGaussNumbersMap[getValue()] = isCollected
@@ -102,5 +122,7 @@ class GaussNumbersFragment : Fragment() {
                     .targetDao()
                     .updateTargetCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID, changedCollectedAmount)
         }
+
+        (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
     }
 }

@@ -21,6 +21,7 @@ class RecordDialog(
         context: Context,
         private val recordType: Record
 ) : Dialog(context) {
+//    todo set text with constructor???
 
     private lateinit var header: TextView
     private lateinit var amountEditText: EditText
@@ -101,7 +102,7 @@ class RecordDialog(
     private fun init() {
         val dialogView = layoutInflater.inflate(R.layout.record_dialog, null)
         dialogView.apply {
-            header = dialogHeaderTextView
+            header = recordDialogHeaderTextView
             amountEditText = dialogAmountEditText
             descriptionEditText = dialogDescriptionEditText
             recordButton = dialogRecordButton
