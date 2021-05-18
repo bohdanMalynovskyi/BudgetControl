@@ -21,6 +21,7 @@ class DatePeriodView(
     }
 
     //todo save dates sorting untill app closes
+    //todo disable setting startdate newer than enddate
 
     private lateinit var startDate: TextView
     private lateinit var endDate: TextView

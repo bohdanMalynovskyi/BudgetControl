@@ -34,16 +34,23 @@ class IncomeCostsFragment : Fragment() {
         budgetComponent = arguments?.getSerializable(BUDGET_COMPONENT) as BudgetComponent
         fetchData()
         setupCounter()
+        incomeCostsDatePeriodView.setDatePickerOnDateSetListener(this::handleDateSet)
     }
 
-    private fun fetchData() {
-        setCounterValue()
-        fillTransactionContainer()
+    private fun handleDateSet(){
+        incomeCostsDatePeriodView.apply {
+            fetchData(getStartDate(), getEndDate())
+        }
     }
 
-    private fun setCounterValue() {
+    private fun fetchData(startDate: String? = null, endDate: String? = null) {
+        setCounterValue(startDate, endDate)
+        fillTransactionContainer(startDate, endDate)
+    }
+
+    private fun setCounterValue(startDate: String?, endDate: String?) {
         GlobalScope.launch {
-            val amount = abs(getTotalIncomeCostsAmount(budgetComponent))
+            val amount = abs(getTotalIncomeCostsAmount(budgetComponent, startDate, endDate))
             activity?.runOnUiThread {
                 incomeCostsYellowCounter.text = getString(
                         R.string.income_costs_value_with_grivnas_placeholder,
@@ -57,14 +64,24 @@ class IncomeCostsFragment : Fragment() {
         }
     }
 
-    private fun fillTransactionContainer() {
+    private fun fillTransactionContainer(startDate: String?, endDate: String?) {
         transactionsListLinearLayout.removeAllViews()
 
         val transactionDao =  BudgetControlDB.getInstance(requireContext()).transactionDao()
         GlobalScope.launch {
             val transactionList = when(budgetComponent){
-                BudgetComponent.INCOME -> transactionDao.getAllIncome()
-                BudgetComponent.COSTS -> transactionDao.getAllCosts()
+                BudgetComponent.INCOME ->{
+                    if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                        transactionDao.getAllIncome()
+                    else
+                        transactionDao.getAllIncomeByDate(startDate, endDate)
+                }
+                BudgetComponent.COSTS -> {
+                    if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                        transactionDao.getAllCosts()
+                    else
+                        transactionDao.getAllCostsByDate(startDate, endDate)
+                }
             }
             activity?.runOnUiThread {
                 transactionList.forEach { transaction ->
@@ -91,13 +108,22 @@ class IncomeCostsFragment : Fragment() {
     }
 
     //TODO in what way to prevent code duplication??????
-    private fun getTotalIncomeCostsAmount(budgetComponent: BudgetComponent): Float {
+    private fun getTotalIncomeCostsAmount(budgetComponent: BudgetComponent, startDate: String?, endDate: String?): Float {
         var totalAmount = 0f
-        val allAmounts: List<Float>?
         val transactionDao = BudgetControlDB.getInstance(requireContext()).transactionDao()
-        allAmounts = when (budgetComponent) {
-            BudgetComponent.INCOME -> transactionDao.getAllIncomeAmounts()
-            BudgetComponent.COSTS -> transactionDao.getAllCostsAmounts()
+        val allAmounts = when (budgetComponent) {
+            BudgetComponent.INCOME ->{
+                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                    transactionDao.getAllIncomeAmounts()
+                else
+                    transactionDao.getAllIncomeAmountsByDate(startDate, endDate)
+            }
+            BudgetComponent.COSTS -> {
+                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                    transactionDao.getAllCostsAmounts()
+                else
+                    transactionDao.getAllCostsAmountsByDate(startDate, endDate)
+            }
         }
         allAmounts.forEach { value ->
             totalAmount += value
