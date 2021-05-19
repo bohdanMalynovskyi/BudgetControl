@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import com.example.budgetcontrol.MainActivity.Companion.BUDGET_COMPONENT
 import com.example.budgetcontrol.R
 import com.example.budgetcontrol.db.BudgetControlDB
+import com.example.budgetcontrol.db.model.Transaction
 import com.example.budgetcontrol.dialog.RecordDialog
 import com.example.budgetcontrol.enum.BudgetComponent
-import com.example.budgetcontrol.enum.Record
 import com.example.budgetcontrol.view.TransactionView
 import kotlinx.android.synthetic.main.income_costs_fragment.*
 import kotlinx.coroutines.GlobalScope
@@ -96,9 +96,14 @@ class IncomeCostsFragment : Fragment() {
             val dialog = RecordDialog(
                     requireContext(),
                     when (budgetComponent) {
-                        BudgetComponent.INCOME -> Record.INCOME_TRANSACTION
-                        BudgetComponent.COSTS -> Record.COSTS_TRANSACTION
-                    }
+                        BudgetComponent.INCOME -> context?.getString(R.string.income)
+                        BudgetComponent.COSTS -> context?.getString(R.string.costs)
+                    },
+                    when (budgetComponent) {
+                        BudgetComponent.INCOME -> context?.getString(R.string.source)
+                        BudgetComponent.COSTS -> context?.getString(R.string.costs_edit_text_hint)
+                    },
+                    this::recordTransaction
             )
             dialog.setOnDismissListener {
                 //todo add the lest transaction
@@ -107,19 +112,35 @@ class IncomeCostsFragment : Fragment() {
         }
     }
 
+    private fun recordTransaction(amount: Float, description: String) {
+        val transaction = Transaction(
+                when (budgetComponent) {
+                    BudgetComponent.INCOME -> amount
+                    BudgetComponent.COSTS -> (-amount)
+                },
+                description
+        )
+
+        GlobalScope.launch {
+            BudgetControlDB.getInstance(requireContext())
+                    .transactionDao()
+                    .insert(transaction)
+        }
+    }
+
     //TODO in what way to prevent code duplication??????
     private fun getTotalIncomeCostsAmount(budgetComponent: BudgetComponent, startDate: String?, endDate: String?): Float {
         var totalAmount = 0f
         val transactionDao = BudgetControlDB.getInstance(requireContext()).transactionDao()
         val allAmounts = when (budgetComponent) {
-            BudgetComponent.INCOME ->{
-                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+            BudgetComponent.INCOME -> {
+                if (startDate.isNullOrBlank() || endDate.isNullOrBlank())
                     transactionDao.getAllIncomeAmounts()
                 else
                     transactionDao.getAllIncomeAmountsByDate(startDate, endDate)
             }
             BudgetComponent.COSTS -> {
-                if(startDate.isNullOrBlank() || endDate.isNullOrBlank())
+                if (startDate.isNullOrBlank() || endDate.isNullOrBlank())
                     transactionDao.getAllCostsAmounts()
                 else
                     transactionDao.getAllCostsAmountsByDate(startDate, endDate)

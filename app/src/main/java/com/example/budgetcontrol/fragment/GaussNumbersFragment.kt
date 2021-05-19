@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 class GaussNumbersFragment : Fragment() {
 
     private var changedGaussNumbersMap = HashMap<Int, Boolean>()
-    private var changedCollectedAmount = 0
+    private var changedCollectedAmount = 0F
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.gauss_numbers_fragment, container, false)
@@ -41,12 +41,12 @@ class GaussNumbersFragment : Fragment() {
         GlobalScope.launch {
             val targetCollectedAmount = BudgetControlDB.getInstance(requireContext())
                     .targetDao()
-                    .getTargetCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID)
+                    .getCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID)
             changedCollectedAmount = targetCollectedAmount
 
             activity?.runOnUiThread {
                 collectedAmountTextView.text = targetCollectedAmount.toString()
-                gaussNumbersSeekBar.progress = targetCollectedAmount
+                gaussNumbersSeekBar.progress = targetCollectedAmount.toInt()
             }
         }
     }
@@ -104,7 +104,7 @@ class GaussNumbersFragment : Fragment() {
                 true -> changedCollectedAmount += getValue()
                 false -> changedCollectedAmount -= getValue()
             }
-            gaussNumbersSeekBar.progress = changedCollectedAmount
+            gaussNumbersSeekBar.progress = changedCollectedAmount.toInt()
             collectedAmountTextView.text = changedCollectedAmount.toString()
         }
     }
@@ -120,7 +120,7 @@ class GaussNumbersFragment : Fragment() {
             }
             BudgetControlDB.getInstance(requireContext())
                     .targetDao()
-                    .updateTargetCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID, changedCollectedAmount)
+                    .updateCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID, changedCollectedAmount)
         }
 
         (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)

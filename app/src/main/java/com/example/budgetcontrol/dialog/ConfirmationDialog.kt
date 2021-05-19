@@ -16,7 +16,7 @@ class ConfirmationDialog(
 
     var confirmButton: TextView
     var confirmationTextView: TextView
-    private var closeButton: ImageView
+    var closeButton: ImageView
 
     init {
         val dialogView = layoutInflater.inflate(R.layout.confirmation_dialog, null)
