@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="BlueMediumTextStyle">
-        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textColor">@color/text_color_blue</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
@@ -12,12 +12,12 @@
     </style>
 
     <style name="YellowMediumTextStyle">
-        <item name="android:textColor">@color/primary_yellow</item>
+        <item name="android:textColor">@color/text_color_yellow</item>
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
     <style name="BlueRegularTextStyle">
-        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textColor">@color/text_color_blue</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
@@ -27,7 +27,7 @@
     </style>
 
     <style name="YellowRegularTextStyle">
-        <item name="android:textColor">@color/primary_yellow</item>
+        <item name="android:textColor">@color/text_color_yellow</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 
@@ -47,7 +47,7 @@
 
     <style name="EditTextStyle">
         <item name="android:background">@drawable/edit_text_background</item>
-        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textColor">@color/text_color_blue</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -61,5 +61,20 @@
         <item name="android:paddingVertical">5dp</item>
         <item name="android:textSize">20sp</item>
         <item name="android:letterSpacing">@dimen/letter_spacing_1_25</item>
+    </style>
+
+    <style name="InformationFragmentHeaderTextView" parent="YellowMediumTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="InformationFragmentInfoTextView" parent="BlueRegularTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineHeight" tools:targetApi="p">24dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:paddingVertical">20dp</item>
     </style>
 </resources>

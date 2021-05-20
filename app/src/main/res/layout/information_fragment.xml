@@ -1,6 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="25dp">
+
+        <TextView
+            style="@style/InformationFragmentHeaderTextView"
+            android:text="@string/how_collect_money_header" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/howCollectMoneyInfoText"
+                style="@style/InformationFragmentInfoTextView"
+                android:text="@string/how_collect_money_info_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/howCollectMoneyInfoText"
+                android:layout_alignBottom="@+id/howCollectMoneyInfoText"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_medium"
+                android:includeFontPadding="false"
+                android:text="$"
+                android:textColor="#59F5DF4D"
+                android:textSize="250sp" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/InformationFragmentHeaderTextView"
+            android:text="@string/six_jugs_method_header" />
+
+        <TextView
+            style="@style/InformationFragmentInfoTextView"
+            android:text="@string/six_jugs_method_info_text" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/six_jugs_method" />
+
+        <TextView
+            style="@style/InformationFragmentHeaderTextView"
+            android:text="@string/latte_effect_header" />
+
+        <TextView
+            style="@style/InformationFragmentInfoTextView"
+            android:text="@string/latte_effect_info_text" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/latte_effect" />
+
+        <TextView
+            style="@style/InformationFragmentHeaderTextView"
+            android:text="@string/four_envelopes_method_header" />
+
+        <TextView
+            style="@style/InformationFragmentInfoTextView"
+            android:text="@string/four_envelopes_method_info_text" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/four_envelopes_method" />
+
+        <TextView
+            style="@style/InformationFragmentInfoTextView"
+            android:text="@string/four_envelopes_method_second_info_text" />
+
+    </LinearLayout>
+
+</ScrollView>

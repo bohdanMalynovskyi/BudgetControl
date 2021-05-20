@@ -16,8 +16,4 @@ class InformationFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.information_fragment, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }

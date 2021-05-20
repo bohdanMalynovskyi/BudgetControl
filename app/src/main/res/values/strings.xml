@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">BudgetControl</string>
     <string name="balance">Баланс</string>
-    <string name="income">дохід</string>
-    <string name="costs">витрати</string>
-    <string name="target">ціль</string>
+    <string name="income">Дохід</string>
+    <string name="costs">Витрати</string>
+    <string name="target">Ціль</string>
     <string name="is_left">залишилось</string>
     <string name="contribution">внесок</string>
     <string name="to_confirm">підтвердити</string>
@@ -19,4 +19,16 @@
     <string name="till">По</string>
     <string name="you_want_to_cancel_contribution">Ви дійсно хочете відмінити вклад ?</string>
     <string name="you_achieve_goal">Вітаємо !!! Ви досягли цілі. Почати знову ?</string>
+    <string name="gauss_numbers_are_collected">Вітаємо !!! 5050 грн. зібрано. Почати з початку?</string>
+    <string name="how_collect_money_header">Як накопичувати гроші ?</string>
+    <string name="how_collect_money_info_text">В основі будь-якого накопичення лежить фінансове планування: необхідно вести облік витрат і доходів, прогнозувати майбутні надходження і витрати, навчитися думати наперед. Спочатку потрібно поставити собі чітку фінансову мету. Користуватися простими, але перевіреними часом системами планування та обліку фінансів, які допоможуть дійти до поставленої мети.</string>
+    <string name="six_jugs_method_header">Метод «шести глечиків»</string>
+    <string name="six_jugs_method_info_text">Відповідно до цього методу, всі грошові надходження діляться на шість категорій: на життя, накопичення, розваги, освіту, великі покупки і подарунки. Витрачати їх можна тільки відповідно до призначення категорії.</string>
+    <string name="latte_effect_header">«Ефект латте»</string>
+    <string name="latte_effect_info_text">Метод «ефект латте» в черговий раз демонструє, як невелика, але послідовна щоденна економія може дати великий фінансовий результат.</string>
+    <string name="four_envelopes_method_header">Метод «чотирьох конвертів»</string>
+    <string name="four_envelopes_method_info_text">Метод «чотирьох конвертів» будується на потижнево плануванні сімейних витрат після того, як з доходів відкладені необхідні суми на фінансові цілі. \n\nСпочатку підрахувати загальну суму доходів сім\'ї за місяць. Потім відняти від неї гроші на середньострокові і довгострокові фінансові цілі (від 5 до 20%) і «покласти» їх в скарбничку.  Із залишку потрібно відняти гроші на повторювані з місяця в місяць витрати (платежі по кредитах, комунальні послуги, бензин і т. д.).</string>
+    <string name="four_envelopes_method_second_info_text">Решту суми ділимо на чотири частини і кладемо в чотири конверта: це ваш бюджет на тиждень. Гроші з тижневого конверта можна витрачати як завгодно, головне - не перевищувати виділеного ліміту.</string>
+    <string name="budget">Бюджет</string>
+    <string name="information">Інформація</string>
 </resources>
