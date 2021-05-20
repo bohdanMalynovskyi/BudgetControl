@@ -14,6 +14,9 @@ interface TargetDao {
     @Query("delete from target where id = :id")
     fun deleteById(id: Int)
 
+    @Query("select * from target where id = :id")
+    fun getTarget(id: Int): Target
+
     @Query("select amount from target where id = :id")
     fun getAmount(id: Int): Float
 

@@ -1,9 +1,11 @@
 package com.example.budgetcontrol.fragment
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import com.example.budgetcontrol.MainActivity
 import com.example.budgetcontrol.R
@@ -12,6 +14,7 @@ import com.example.budgetcontrol.db.model.Target
 import com.example.budgetcontrol.dialog.ConfirmationDialog
 import com.example.budgetcontrol.enum.FragmentType
 import com.example.budgetcontrol.view.GaussNumberView
+import kotlinx.android.synthetic.main.gauss_number_info_dialog.*
 import kotlinx.android.synthetic.main.gauss_numbers_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -28,6 +31,37 @@ class GaussNumbersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        menu.forEach { item ->
+            if (item.itemId == R.id.toolbarMenuItemInfo) {
+                item.isVisible = true
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.toolbarMenuItemInfo) {
+            handleInfoButtonClick()
+        }
+        return true
+    }
+
+    private fun handleInfoButtonClick() {
+        val dialog = Dialog(requireContext())
+        dialog.apply {
+            val dialogView = layoutInflater.inflate(R.layout.gauss_number_info_dialog, null)
+            setContentView(dialogView)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            gaussNumberInfoDialogCloseButton.setOnClickListener {
+                dismiss()
+            }
+            show()
+        }
     }
 
     private fun setupViews() {

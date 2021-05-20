@@ -31,4 +31,8 @@
     <string name="four_envelopes_method_second_info_text">Решту суми ділимо на чотири частини і кладемо в чотири конверта: це ваш бюджет на тиждень. Гроші з тижневого конверта можна витрачати як завгодно, головне - не перевищувати виділеного ліміту.</string>
     <string name="budget">Бюджет</string>
     <string name="information">Інформація</string>
+    <string name="edit">edit</string>
+    <string name="info">info</string>
+    <string name="method_essence_header">Суть даного способу:</string>
+    <string name="method_essence_info_text">На екрані розташовані цифри від 1 до 100. Якщо скласти всі ці числа між собою, у нас вийде 5050 - сума, яку ми будемо накопичувати. Тепер беремо скарбничку і тоді, коли ми будемо складати в неї - викреслюємо це ж число. \nЕксперимент продовжуємо до тих пір, поки не викреслимо всі числа.</string>
 </resources>

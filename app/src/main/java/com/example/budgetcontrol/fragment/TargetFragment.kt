@@ -1,9 +1,8 @@
 package com.example.budgetcontrol.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import com.example.budgetcontrol.MainActivity
 import com.example.budgetcontrol.R
@@ -31,8 +30,58 @@ class TargetFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchData()
+        setHasOptionsMenu(true)
 
         setConfirmButtonOnClickListener()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        menu.forEach { item ->
+            if (item.itemId == R.id.toolbarMenuItemEdit) {
+                item.isVisible = true
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.toolbarMenuItemEdit) {
+            handleEditButtonClick()
+        }
+        return true
+    }
+
+    private fun handleEditButtonClick() {
+        val dialog = RecordDialog(
+                requireContext(),
+                context?.getString(R.string.target),
+                context?.getString(R.string.target_description),
+                this::updateTarget
+        )
+        dialog.setOnDismissListener {
+//            (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+        }
+        dialog.show()
+    }
+
+    private fun updateTarget(amount: Float, description: String) {
+        val targetDao = BudgetControlDB.getInstance(requireContext()).targetDao()
+
+        GlobalScope.launch {
+            val currentTarget = targetDao.getTarget(Target.MAIN_TARGET_ID)
+            val newTarget = currentTarget.copy(
+                    amount = amount,
+                    description = description
+            )
+
+            BudgetControlDB.getInstance(requireContext())
+                    .targetDao()
+                    .update(newTarget)
+
+            activity?.runOnUiThread {
+                refreshTargetInfo()
+            }
+        }
     }
 
 
