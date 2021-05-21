@@ -37,19 +37,22 @@ class TargetFragment: Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)
-        menu.forEach { item ->
-            if (item.itemId == R.id.toolbarMenuItemEdit) {
-                item.isVisible = true
-            }
-        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.toolbarMenuItemEdit).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.toolbarMenuItemEdit) {
+        return if (item.itemId == R.id.toolbarMenuItemEdit) {
             handleEditButtonClick()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     private fun handleEditButtonClick() {

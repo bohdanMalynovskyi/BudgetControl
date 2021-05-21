@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val BUDGET_COMPONENT: String = "BUDGET_COMPONENT"
-        const val BUDGET_TITLE: String = "Бюджет"
     }
 
     private lateinit var navController: NavController
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         this.toolbar = budgetControlToolbar
-        setToolbarTitle(BUDGET_TITLE)
+        setToolbarTitle(getString(R.string.budget))
         setSupportActionBar(toolbar)
     }
 

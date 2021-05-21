@@ -44,19 +44,22 @@ class GaussNumbersFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)
-        menu.forEach { item ->
-            if (item.itemId == R.id.toolbarMenuItemInfo) {
-                item.isVisible = true
-            }
-        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.toolbarMenuItemInfo).isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.toolbarMenuItemInfo) {
+        return if (item.itemId == R.id.toolbarMenuItemInfo) {
             handleInfoButtonClick()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     private fun handleInfoButtonClick() {
