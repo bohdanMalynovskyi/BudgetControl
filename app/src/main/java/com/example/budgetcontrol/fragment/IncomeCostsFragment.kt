@@ -21,6 +21,7 @@ import kotlin.math.abs
 class IncomeCostsFragment : Fragment() {
 
     private lateinit var budgetComponent: BudgetComponent
+    private lateinit var updatingTransaction: Transaction
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -166,6 +167,8 @@ class IncomeCostsFragment : Fragment() {
     }
 
     private fun handleEditButtonClick(transaction: Transaction) {
+        updatingTransaction = transaction
+
         val dialog = RecordDialog(
                 requireContext(),
                 when (budgetComponent) {
@@ -175,28 +178,30 @@ class IncomeCostsFragment : Fragment() {
                 when (budgetComponent) {
                     BudgetComponent.INCOME -> context?.getString(R.string.source)
                     BudgetComponent.COSTS -> context?.getString(R.string.costs_edit_text_hint)
-                }
-        ) { amount, description ->
-            val newTransaction = transaction.copy(
-                    amount = when (budgetComponent) {
-                        BudgetComponent.INCOME -> amount
-                        BudgetComponent.COSTS -> (-amount)
-                    },
-                    comment = description
-            )
-
-            GlobalScope.launch {
-                BudgetControlDB.getInstance(requireContext())
-                        .transactionDao()
-                        .update(newTransaction)
-            }
-        }
-
+                },
+                this::updateTransaction
+        )
         dialog.apply {
             setOnDismissListener {
                 fetchData()
             }
             show()
+        }
+    }
+
+    private fun updateTransaction(amount: Float, description: String){
+        val newTransaction = updatingTransaction.copy(
+                amount = when (budgetComponent) {
+                    BudgetComponent.INCOME -> amount
+                    BudgetComponent.COSTS -> (-amount)
+                },
+                comment = description
+        )
+
+        GlobalScope.launch {
+            BudgetControlDB.getInstance(requireContext())
+                    .transactionDao()
+                    .update(newTransaction)
         }
     }
 }
