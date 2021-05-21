@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.budgetcontrol.MainActivity
 import com.example.budgetcontrol.MainActivity.Companion.BUDGET_COMPONENT
 import com.example.budgetcontrol.R
 import com.example.budgetcontrol.db.BudgetControlDB
@@ -32,6 +33,10 @@ class IncomeCostsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         budgetComponent = arguments?.getSerializable(BUDGET_COMPONENT) as BudgetComponent
+        (activity as MainActivity).setToolbarTitle(getString(when (budgetComponent) {
+            BudgetComponent.INCOME -> R.string.income
+            BudgetComponent.COSTS -> R.string.costs
+        }))
         fetchData()
         setupCounter()
         incomeCostsDatePeriodView.setDatePickerOnDateSetListener(this::handleDateSet)
@@ -85,7 +90,12 @@ class IncomeCostsFragment : Fragment() {
             }
             activity?.runOnUiThread {
                 transactionList.forEach { transaction ->
-                    transactionsListLinearLayout.addView(TransactionView(requireContext(), transaction), 0)
+                    val transactionView = TransactionView(
+                            requireContext(),
+                            transaction,
+                            this@IncomeCostsFragment::handleEditButtonClick
+                    )
+                    transactionsListLinearLayout.addView(transactionView, 0)
                 }
             }
         }
@@ -125,6 +135,9 @@ class IncomeCostsFragment : Fragment() {
             BudgetControlDB.getInstance(requireContext())
                     .transactionDao()
                     .insert(transaction)
+            activity?.runOnUiThread {
+                fetchData()
+            }
         }
     }
 
@@ -150,5 +163,40 @@ class IncomeCostsFragment : Fragment() {
             totalAmount += value
         }
         return totalAmount
+    }
+
+    private fun handleEditButtonClick(transaction: Transaction) {
+        val dialog = RecordDialog(
+                requireContext(),
+                when (budgetComponent) {
+                    BudgetComponent.INCOME -> context?.getString(R.string.income)
+                    BudgetComponent.COSTS -> context?.getString(R.string.costs)
+                },
+                when (budgetComponent) {
+                    BudgetComponent.INCOME -> context?.getString(R.string.source)
+                    BudgetComponent.COSTS -> context?.getString(R.string.costs_edit_text_hint)
+                }
+        ) { amount, description ->
+            val newTransaction = transaction.copy(
+                    amount = when (budgetComponent) {
+                        BudgetComponent.INCOME -> amount
+                        BudgetComponent.COSTS -> (-amount)
+                    },
+                    comment = description
+            )
+
+            GlobalScope.launch {
+                BudgetControlDB.getInstance(requireContext())
+                        .transactionDao()
+                        .update(newTransaction)
+            }
+        }
+
+        dialog.apply {
+            setOnDismissListener {
+                fetchData()
+            }
+            show()
+        }
     }
 }

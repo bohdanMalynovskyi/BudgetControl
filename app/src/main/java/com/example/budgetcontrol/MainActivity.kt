@@ -29,41 +29,23 @@ class MainActivity : AppCompatActivity() {
 
     fun navigateToFragment(fragment: FragmentType) {
         when (fragment) {
-            FragmentType.BUDGET -> {
-                navController.navigate(R.id.budgetFragment)
-                setToolbarTitle(getString(R.string.budget))
-            }
-            FragmentType.INCOME -> {
-                navigateToIncomeCostsFragment(BudgetComponent.INCOME)
-                setToolbarTitle(getString(R.string.income))
-            }
-            FragmentType.COSTS -> {
-                navigateToIncomeCostsFragment(BudgetComponent.COSTS)
-                setToolbarTitle(getString(R.string.costs))
-            }
-            FragmentType.TARGET -> {
-                navController.navigate(R.id.targetFragment)
-                setToolbarTitle(getString(R.string.target))
-            }
-            FragmentType.GAUSS_NUMBERS -> {
-                navController.navigate(R.id.gaussNumbersFragment)
-                setToolbarTitle(getString(R.string.fifty_fifty))
-            }
-            FragmentType.INFORMATION -> {
-                navController.navigate(R.id.informationFragment)
-                setToolbarTitle(getString(R.string.information))
-            }
+            FragmentType.BUDGET -> navController.navigate(R.id.budgetFragment)
+            FragmentType.INCOME -> navigateToIncomeCostsFragment(BudgetComponent.INCOME)
+            FragmentType.COSTS -> navigateToIncomeCostsFragment(BudgetComponent.COSTS)
+            FragmentType.TARGET -> navController.navigate(R.id.targetFragment)
+            FragmentType.GAUSS_NUMBERS -> navController.navigate(R.id.gaussNumbersFragment)
+            FragmentType.INFORMATION -> navController.navigate(R.id.informationFragment)
         }
+    }
+
+    fun setToolbarTitle(title: String) {
+        toolbar.title = title
     }
 
     private fun setupToolbar() {
         this.toolbar = budgetControlToolbar
         setToolbarTitle(BUDGET_TITLE)
         setSupportActionBar(toolbar)
-    }
-
-    private fun setToolbarTitle(title: String) {
-        toolbar.title = title
     }
 
     private fun navigateToIncomeCostsFragment(budgetComponent: BudgetComponent) {

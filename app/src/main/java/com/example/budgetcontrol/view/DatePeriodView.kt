@@ -49,6 +49,18 @@ class DatePeriodView(
     private fun setDate(view: TextView, date: Calendar) {
         val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
         view.text = dateFormat.format(date.time)
+
+        if (isStartLaterThanEnd()) {
+            handleStartLaterThanEnd()
+        }
+    }
+
+    private fun isStartLaterThanEnd(): Boolean {
+        return startDate.text.toString() > endDate.text.toString()
+    }
+
+    private fun handleStartLaterThanEnd() {
+        startDate.text = endDate.text
     }
 
     private fun setDateTextViewOnClickListener(textView: TextView) {

@@ -23,7 +23,7 @@ abstract class BudgetControlDB : RoomDatabase() {
     //TODO use LiveData
 
     companion object {
-        private val DATABASE = "BudgetControl"
+        private const val DATABASE = "BudgetControl"
 
         private var instance: BudgetControlDB? = null
 

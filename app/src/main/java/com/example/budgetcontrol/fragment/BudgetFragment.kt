@@ -26,6 +26,7 @@ class BudgetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).setToolbarTitle(getString(R.string.budget))
         fetchData()
 
         setupNavigationButtonsOnClickListeners()

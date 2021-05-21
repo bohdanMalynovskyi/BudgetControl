@@ -16,10 +16,16 @@ import com.example.budgetcontrol.enum.FragmentType
 import com.example.budgetcontrol.view.GaussNumberView
 import kotlinx.android.synthetic.main.gauss_number_info_dialog.*
 import kotlinx.android.synthetic.main.gauss_numbers_fragment.*
+import kotlinx.android.synthetic.main.record_dialog.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class GaussNumbersFragment : Fragment() {
+
+    companion object {
+        private const val IS_NOT_COLLECTED = 0
+        private const val IS_COLLECTED = 1
+    }
 
     private var changedGaussNumbersMap = HashMap<Int, Boolean>()
     private var changedCollectedAmount = 0F
@@ -31,6 +37,8 @@ class GaussNumbersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        setData()
+        (activity as MainActivity).setToolbarTitle(getString(R.string.fifty_fifty))
 
         setHasOptionsMenu(true)
     }
@@ -65,10 +73,13 @@ class GaussNumbersFragment : Fragment() {
     }
 
     private fun setupViews() {
-        fillGaussNumbersLayout()
-        setCollectedAmount()
         gaussNumbersSeekBar.isEnabled = false
         gaussNumbersFragmentConfirmButton.setOnClickListener(this::handleConfirmButtonClick)
+    }
+
+    private fun setData() {
+        fillGaussNumbersLayout()
+        setCollectedAmount()
     }
 
     private fun setCollectedAmount() {
@@ -79,8 +90,12 @@ class GaussNumbersFragment : Fragment() {
             changedCollectedAmount = targetCollectedAmount
 
             activity?.runOnUiThread {
-                collectedAmountTextView.text = targetCollectedAmount.toString()
+                collectedAmountTextView.text = targetCollectedAmount.toInt().toString()
                 gaussNumbersSeekBar.progress = targetCollectedAmount.toInt()
+
+                if (isTargetAchieved(targetCollectedAmount)) {
+                    handleAmountCollected()
+                }
             }
         }
     }
@@ -98,7 +113,7 @@ class GaussNumbersFragment : Fragment() {
                     val gaussNumber = GaussNumberView(context, number)
                     val index = number - 1
                     val isCollected = gaussNumbersStatusesList[index]
-                    gaussNumber.setStatus(isCollected == 1)
+                    gaussNumber.setStatus(isCollected == IS_COLLECTED)
 
                     gaussNumber.apply {
                         setOnClickListener(this@GaussNumbersFragment::handleGaussNumberViewClick)
@@ -139,24 +154,65 @@ class GaussNumbersFragment : Fragment() {
                 false -> changedCollectedAmount -= getValue()
             }
             gaussNumbersSeekBar.progress = changedCollectedAmount.toInt()
-            collectedAmountTextView.text = changedCollectedAmount.toString()
+            collectedAmountTextView.text = changedCollectedAmount.toInt().toString()
         }
     }
 
     private fun handleConfirmButtonClick(view: View) {
-        val gaussNumberDao = BudgetControlDB.getInstance(requireContext()).gaussNumberDao()
-
         GlobalScope.launch {
             changedGaussNumbersMap.forEach {
                 val value = it.key
                 val isCollected = it.value
-                gaussNumberDao.updateStatus(value, if (isCollected) 1 else 0)
+                BudgetControlDB.getInstance(requireContext())
+                        .gaussNumberDao()
+                        .updateStatus(value, if (isCollected) IS_COLLECTED else IS_NOT_COLLECTED)
             }
             BudgetControlDB.getInstance(requireContext())
                     .targetDao()
                     .updateCollectedAmount(Target.GAUSS_NUMBER_TARGET_ID, changedCollectedAmount)
         }
+        if (isTargetAchieved(changedCollectedAmount)) {
+            handleAmountCollected()
+        } else {
+            (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+        }
 
-        (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+    }
+
+    private fun handleAmountCollected() {
+        val dialog = ConfirmationDialog(
+                requireContext(),
+                getString(R.string.gauss_numbers_are_collected)
+        )
+        dialog.apply {
+            confirmButton.setOnClickListener {
+                startCollectingAgain()
+                dismiss()
+            }
+            show()
+        }
+    }
+
+    private fun startCollectingAgain() {
+        val db = BudgetControlDB.getInstance(requireContext())
+        GlobalScope.launch {
+            for (number in 1..100) {
+                db.gaussNumberDao().updateStatus(number, IS_NOT_COLLECTED)
+            }
+            val target = Target(
+                    Target.GAUSS_NUMBER_TARGET_ID,
+                    Target.GAUSS_NUMBER_TARGET_DESCRIPTION,
+                    Target.GAUSS_NUMBER_TARGET_AMOUNT,
+                    0
+            )
+            db.targetDao().insert(target)
+            activity?.runOnUiThread {
+                setData()
+            }
+        }
+    }
+
+    private fun isTargetAchieved(collectedAmount: Float): Boolean {
+        return collectedAmount >= Target.GAUSS_NUMBER_TARGET_AMOUNT
     }
 }

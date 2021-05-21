@@ -12,7 +12,7 @@ interface TargetDao {
     fun update(target: Target)
 
     @Query("delete from target where id = :id")
-    fun deleteById(id: Int)
+    fun delete(id: Int)
 
     @Query("select * from target where id = :id")
     fun getTarget(id: Int): Target

@@ -29,9 +29,10 @@ class TargetFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchData()
         setHasOptionsMenu(true)
+        (activity as MainActivity).setToolbarTitle(getString(R.string.target))
 
+        fetchData()
         setConfirmButtonOnClickListener()
     }
 
@@ -52,34 +53,34 @@ class TargetFragment: Fragment() {
     }
 
     private fun handleEditButtonClick() {
-        val dialog = RecordDialog(
+        RecordDialog(
                 requireContext(),
                 context?.getString(R.string.target),
                 context?.getString(R.string.target_description),
                 this::updateTarget
-        )
-        dialog.setOnDismissListener {
-//            (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
-        }
-        dialog.show()
+        ).show()
     }
 
-    private fun updateTarget(amount: Float, description: String) {
+    private fun updateTarget(newAmount: Float, description: String) {
         val targetDao = BudgetControlDB.getInstance(requireContext()).targetDao()
 
         GlobalScope.launch {
             val currentTarget = targetDao.getTarget(Target.MAIN_TARGET_ID)
-            val newTarget = currentTarget.copy(
-                    amount = amount,
-                    description = description
-            )
+            if (newAmount < currentTarget.collectedAmount) {
+                handleTargetAchievement()
+            } else {
+                val newTarget = currentTarget.copy(
+                        amount = newAmount,
+                        description = description
+                )
 
-            BudgetControlDB.getInstance(requireContext())
-                    .targetDao()
-                    .update(newTarget)
+                BudgetControlDB.getInstance(requireContext())
+                        .targetDao()
+                        .update(newTarget)
 
-            activity?.runOnUiThread {
-                refreshTargetInfo()
+                activity?.runOnUiThread {
+                    refreshTargetInfo()
+                }
             }
         }
     }
@@ -109,7 +110,15 @@ class TargetFragment: Fragment() {
                 this::recordTarget
         )
         dialog.setOnDismissListener {
-//            (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+            GlobalScope.launch {
+                val isTargetAdded = BudgetControlDB.getInstance(requireContext())
+                        .targetDao().isAdded(Target.MAIN_TARGET_ID)
+                if (!isTargetAdded) {
+                    activity?.runOnUiThread {
+                        (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+                    }
+                }
+            }
         }
         dialog.show()
     }
@@ -146,26 +155,7 @@ class TargetFragment: Fragment() {
                     val targetAmount = targetDao.getAmount(Target.MAIN_TARGET_ID)
 
                     if (newCollectedAmount >= targetAmount) {
-                        targetDao.deleteById(Target.MAIN_TARGET_ID)
-
-                        activity?.runOnUiThread {
-                            val dialog = ConfirmationDialog(
-                                    requireContext(),
-                                    getString(R.string.you_achieve_goal)
-                            )
-                            dialog.apply {
-                                confirmButton.setOnClickListener {
-                                    createTarget()
-                                    dismiss()
-                                }
-                                closeButton.setOnClickListener {
-                                    (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
-                                    dismiss()
-                                }
-                                show()
-                            }
-                            refreshTargetInfo()
-                        }
+                        handleTargetAchievement()
                     } else {
                         targetDao.updateCollectedAmount(Target.MAIN_TARGET_ID, newCollectedAmount)
 
@@ -175,6 +165,30 @@ class TargetFragment: Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun handleTargetAchievement() {
+        val targetDao = BudgetControlDB.getInstance(requireContext()).targetDao()
+        targetDao.delete(Target.MAIN_TARGET_ID)
+
+        activity?.runOnUiThread {
+            val dialog = ConfirmationDialog(
+                    requireContext(),
+                    getString(R.string.you_achieve_goal)
+            )
+            dialog.apply {
+                confirmButton.setOnClickListener {
+                    createTarget()
+                    dismiss()
+                }
+                closeButton.setOnClickListener {
+                    (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+                    dismiss()
+                }
+                show()
+            }
+            refreshTargetInfo()
         }
     }
 
