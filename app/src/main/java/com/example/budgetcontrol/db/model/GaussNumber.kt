@@ -6,9 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "gauss_numbers")
 data class GaussNumber(
-        @PrimaryKey(autoGenerate = true) val id: Int,
         val value: Int,
-        @ColumnInfo(name = "is_collected") val isCollected: Boolean
-){
-    constructor(value: Int, isCollected: Boolean) : this(0, value, isCollected)
-}
+        @ColumnInfo(name = "is_collected") val isCollected: Boolean,
+        @PrimaryKey(autoGenerate = true) val id: Int = 0
+)

@@ -14,6 +14,7 @@ import com.example.budgetcontrol.enum.FragmentType
 import kotlinx.android.synthetic.main.target_fragment.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class TargetFragment: Fragment() {
 
@@ -59,7 +60,7 @@ class TargetFragment: Fragment() {
         RecordDialog(
                 requireContext(),
                 context?.getString(R.string.target),
-                context?.getString(R.string.target_description),
+                context?.getString(R.string.target)?.toLowerCase(Locale.getDefault()),
                 this::updateTarget
         ).show()
     }
@@ -109,7 +110,7 @@ class TargetFragment: Fragment() {
         val dialog = RecordDialog(
                 requireContext(),
                 context?.getString(R.string.target),
-                context?.getString(R.string.target_description),
+                context?.getString(R.string.target)?.toLowerCase(Locale.getDefault()),
                 this::recordTarget
         )
         dialog.setOnDismissListener {
@@ -128,19 +129,18 @@ class TargetFragment: Fragment() {
 
     private fun refreshTargetInfo() {
         val targetDao = BudgetControlDB.getInstance(requireContext()).targetDao()
-        var targetAmount: Float
-        var targetCollectedAmount: Float
+        var target: Target
         var leftAmount: Float
 
         GlobalScope.launch {
-            targetCollectedAmount = targetDao.getCollectedAmount(Target.MAIN_TARGET_ID)
-            targetAmount = targetDao.getAmount(Target.MAIN_TARGET_ID)
-            leftAmount = targetAmount - targetCollectedAmount
+            target = targetDao.getTarget(Target.MAIN_TARGET_ID)
+            leftAmount = target.amount - target.collectedAmount
 
             activity?.runOnUiThread {
-                targetCollectedAmountTextView.text = targetCollectedAmount.toString()
-                targetAmountTextView.text = targetAmount.toString()
+                targetCollectedAmountTextView.text = target.collectedAmount.toString()
+                targetAmountTextView.text = target.amount.toString()
                 leftAmountTextView.text = leftAmount.toString()
+                targetTextView.text = target.description
             }
         }
     }

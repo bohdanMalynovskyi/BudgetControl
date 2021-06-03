@@ -10,6 +10,7 @@ import com.example.budgetcontrol.enum.FragmentType
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    //todo add progress view while fetching data
 
     companion object{
         const val BUDGET_COMPONENT: String = "BUDGET_COMPONENT"
