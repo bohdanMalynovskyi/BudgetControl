@@ -129,18 +129,22 @@ class TargetFragment: Fragment() {
 
     private fun refreshTargetInfo() {
         val targetDao = BudgetControlDB.getInstance(requireContext()).targetDao()
-        var target: Target
+        var description: String
+        var amount: Float
+        var collectedAmount: Float
         var leftAmount: Float
 
         GlobalScope.launch {
-            target = targetDao.getTarget(Target.MAIN_TARGET_ID)
-            leftAmount = target.amount - target.collectedAmount
+            amount = targetDao.getAmount(Target.MAIN_TARGET_ID)
+            collectedAmount = targetDao.getCollectedAmount(Target.MAIN_TARGET_ID)
+            description = targetDao.getDescription(Target.MAIN_TARGET_ID)
+            leftAmount = amount - collectedAmount
 
             activity?.runOnUiThread {
-                targetCollectedAmountTextView.text = target.collectedAmount.toString()
-                targetAmountTextView.text = target.amount.toString()
+                targetCollectedAmountTextView.text = collectedAmount.toString()
+                targetAmountTextView.text = amount.toString()
                 leftAmountTextView.text = leftAmount.toString()
-                targetTextView.text = target.description
+                targetTextView.text = description
             }
         }
     }

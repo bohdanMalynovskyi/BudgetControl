@@ -23,6 +23,9 @@ interface TargetDao {
     @Query("select collected_amount from target where id = :id")
     fun getCollectedAmount(id: Int): Float
 
+    @Query("select description from target where id = :id")
+    fun getDescription(id: Int): String
+
     @Query("update target set collected_amount = :amount where id = :id")
     fun updateCollectedAmount(id: Int, amount: Float)
 
