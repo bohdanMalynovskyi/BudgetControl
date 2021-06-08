@@ -177,7 +177,7 @@ class GaussNumbersFragment : Fragment() {
         if (isTargetAchieved(changedCollectedAmount)) {
             handleAmountCollected()
         } else {
-            (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+            activity?.onBackPressed()
         }
 
     }

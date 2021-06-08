@@ -119,7 +119,7 @@ class TargetFragment: Fragment() {
                         .targetDao().isAdded(Target.MAIN_TARGET_ID)
                 if (!isTargetAdded) {
                     activity?.runOnUiThread {
-                        (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+                        requireActivity().onBackPressed()
                     }
                 }
             }
@@ -190,7 +190,7 @@ class TargetFragment: Fragment() {
                     dismiss()
                 }
                 closeButton.setOnClickListener {
-                    (activity as MainActivity).navigateToFragment(FragmentType.BUDGET)
+                    requireActivity().onBackPressed()
                     dismiss()
                 }
                 show()
